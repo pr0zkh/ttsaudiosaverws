@@ -10,11 +10,13 @@ import org.ttsaudiosaver.ws.core.tts.provider.GoogleTTSProvider;
 
 public class TTSManagerTestRunner {
 	
+	private static final String OUTPUT_FOLDER_PATH = "./output/";
+	
 	public static void main(String[] args) {
 		TTSManager manager = new TTSManager();
 		GoogleTTSProvider provider = new GoogleTTSProvider();
 		manager.setProvider(provider);
-		manager.saveTTSToFile("sample.mp3", "hello", Language.ENGLISH);
+		manager.saveTTSToFile(OUTPUT_FOLDER_PATH + "sample.mp3", "hello", Language.ENGLISH);
 		
 		Map<String, String> pairs = new HashMap<String, String>();
 		pairs.put("hello", "привет");
@@ -22,6 +24,6 @@ public class TTSManagerTestRunner {
 		pairs.put("bus", "автобус");
 		pairs.put("transactional", "транзакционный");
 		
-		manager.saveTTSToFile("sample_pairs.mp3", pairs, Language.ENGLISH, Language.RUSSIAN);
+		manager.saveTTSToFile(OUTPUT_FOLDER_PATH + "sample_pairs.mp3", pairs, Language.ENGLISH, Language.RUSSIAN);
 	}
 }
