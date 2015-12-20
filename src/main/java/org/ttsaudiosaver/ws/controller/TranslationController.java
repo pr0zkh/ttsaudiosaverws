@@ -34,13 +34,29 @@ public class TranslationController {
 		return response.toString(); 
 	}
 	
-	@RequestMapping(value = "/translate_tts", method = RequestMethod.GET)
+	@RequestMapping(value = "/translate_tts", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public String translateTTS(@RequestParam("from") String from, @RequestParam("fromLang") String fromLang, @RequestParam("toLang") String toLang) {
 		Map<String, String> toSave = new HashMap<>();
 		String translation = translationManager.getTranslation(from, Language.getLanguage(fromLang), Language.getLanguage(toLang));
 		toSave.put(from, translation);
-		ttsManager.saveTTSToFile(toSave, Language.getLanguage(fromLang), Language.getLanguage(toLang));
-		return "success"; 
+		String fileId = ttsManager.saveTTSToFile(toSave, Language.getLanguage(fromLang), Language.getLanguage(toLang));
+		
+		JsonObject response = new JsonObject();
+		response.addProperty("from", from);
+		response.addProperty("translation", translation);
+		response.addProperty("fromLang", fromLang);
+		response.addProperty("toLang", toLang);
+		response.addProperty("fileId", fileId);
+		
+		return response.toString(); 
 	}
-
+	
+	@RequestMapping(value = "/compile_tts", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	public String compileTranslations(@RequestParam("fileIds") String[] fileIds) {
+		String compiledFileId = ttsManager.saveTTSToFile(fileIds);
+		
+		JsonObject response = new JsonObject();
+		response.addProperty("compiledFileId", compiledFileId);
+		return response.toString(); 
+	}
 }

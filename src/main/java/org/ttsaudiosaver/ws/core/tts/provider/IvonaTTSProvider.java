@@ -84,20 +84,4 @@ public class IvonaTTSProvider implements TTSProvider {
         }
         return result;
 	}
-	
-	public void getVoices() {
-		ListVoicesRequest allVoicesRequest = new ListVoicesRequest();
-        ListVoicesResult allVoicesResult = speechCloud.listVoices(allVoicesRequest);
-        System.out.println("All voices: " + allVoicesResult);
-
-        ListVoicesRequest enUsVoicesRequest = new ListVoicesRequest();
-        Voice voice = new Voice();
-        voice.setLanguage("en-US");
-        enUsVoicesRequest.setVoice(voice);
-        ListVoicesResult enUsVoiceResult = speechCloud.listVoices(enUsVoicesRequest);
-        System.out.println("en-US voices: " + enUsVoiceResult);
-        
-        ListLexiconsResult listLexiconsResult = speechCloud.listLexicons();
-        System.out.println("List of lexicons: " + listLexiconsResult);
-	}
 }

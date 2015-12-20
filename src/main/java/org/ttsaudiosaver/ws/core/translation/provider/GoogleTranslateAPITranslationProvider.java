@@ -111,7 +111,6 @@ public class GoogleTranslateAPITranslationProvider implements TranslationProvide
 	    jobject = jobject.getAsJsonObject("data");
 	    JsonArray jarray = jobject.getAsJsonArray("translations");
 	    jobject = jarray.get(0).getAsJsonObject();
-	    String result = jobject.get("translatedText").toString();
-	    return result.replace("\"", "");
+	    return jobject.get("translatedText").getAsString();
 	}
 }
