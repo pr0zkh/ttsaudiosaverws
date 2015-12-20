@@ -11,10 +11,11 @@ import java.util.Arrays;
 import org.apache.commons.lang3.CharEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 import org.ttsaudiosaver.ws.core.translation.common.Language;
 
+@Service
 public class GoogleTTSProvider implements TTSProvider {
 	
 	private static final String QUERY_URI = "https://translate.google.com/translate_tts";
@@ -26,12 +27,12 @@ public class GoogleTTSProvider implements TTSProvider {
 	private static final String PARAM_TEXTLEN = "textlen";
 	private static final String PARAM_TOKEN = "tk";
 	private static final String PARAM_CLIENT = "client";
-	private static final String DEFAULT_TOKEN = "79487|464792";
+	private static final String DEFAULT_TOKEN = "378142.254180";
 	private static final String PARAM_USER_AGENT = "User-Agent";
 	private static final String DEFAULT_USER_AGENT = "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.80 Safari/537.36";
 	private static final Integer BUFFER_SIZE = 8 * 1024;
 	
-	private static final Logger logger = LogManager.getLogger(GoogleTTSProvider.class);
+	private static final Logger logger = Logger.getLogger(GoogleTTSProvider.class);
 	
 	private String token;
 	

@@ -13,4 +13,13 @@ public enum Language {
 	public String getValue() {
 		return this.value;
 	}
+	
+	public static Language getLanguage(String val) {
+		for(Language l : values()) {
+			if(l.value.equals(val)) {
+				return l;
+			}
+		}
+		return null;
+	}
 }
