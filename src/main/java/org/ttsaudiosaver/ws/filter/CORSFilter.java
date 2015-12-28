@@ -16,6 +16,10 @@ public class CORSFilter extends OncePerRequestFilter {
                                     HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
             response.addHeader("Access-Control-Allow-Origin", "*");
+            response.addHeader("Accept-Ranges", "bytes");
+            response.addHeader("Access-Control-Allow-Headers", "range, accept-encoding");
+            response.addHeader("Accept-Ranges", "bytes");
+            response.addHeader("Content-Range", "bytes");
             if (request.getHeader("Access-Control-Request-Method") != null
                     && "OPTIONS".equals(request.getMethod())) {
                 // CORS "pre-flight" request
