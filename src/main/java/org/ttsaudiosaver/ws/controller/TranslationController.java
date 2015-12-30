@@ -36,8 +36,27 @@ public class TranslationController {
 	
 	@RequestMapping(value = "/translate_tts", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public String translateTTS(@RequestParam("from") String from, @RequestParam("fromLang") String fromLang, @RequestParam("toLang") String toLang) {
-		Map<String, String> toSave = new HashMap<>();
+		Map<String, String> toSave = new HashMap<String, String>();
 		String translation = translationManager.getTranslation(from, Language.getLanguage(fromLang), Language.getLanguage(toLang));
+		toSave.put(from, translation);
+		String fileId = ttsManager.saveTTSToFile(toSave, Language.getLanguage(fromLang), Language.getLanguage(toLang));
+		
+		JsonObject response = new JsonObject();
+		response.addProperty("from", from);
+		response.addProperty("translation", translation);
+		response.addProperty("fromLang", fromLang);
+		response.addProperty("toLang", toLang);
+		response.addProperty("fileId", fileId);
+		
+		return response.toString(); 
+	}
+	
+	@RequestMapping(value = "/update_tts", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	public String updateTranslation(@RequestParam("from") String from, 
+			@RequestParam("translation") String translation, 
+			@RequestParam("fromLang") String fromLang, 
+			@RequestParam("toLang") String toLang) {
+		Map<String, String> toSave = new HashMap<String, String>();
 		toSave.put(from, translation);
 		String fileId = ttsManager.saveTTSToFile(toSave, Language.getLanguage(fromLang), Language.getLanguage(toLang));
 		
